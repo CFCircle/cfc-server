@@ -1,0 +1,61 @@
+// backend/src/lib/db.js
+
+import mongoose from "mongoose";
+
+export async function connectDB() {
+    try {
+        const mongodbUri = process.env.MONGODB_URI;
+
+        if (!mongodbUri) {
+            throw new Error("MONGODB_URI not found.")
+        }
+
+        // Connect if found
+        const conn = await mongoose.connect(mongodbUri);
+        console.log("MongoDB connected", conn.connection.host);
+    } catch(error) {
+        console.error("MongoDB connection error:", error.message);
+        process.exit(1);    // 1 - failed, 0 - success
+    }
+}
+
+// backend/src/index.js
+
+import "dotenv/config";
+
+import express from "express";
+
+import User from "./models/user.model.js";
+import { connectDB } from "./lib/db.js";
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+  connectDB();
+  console.log(`Server is up and running on PORT: ${PORT}`);
+});
+
+
+// backend/.env
+
+MONGODB_URI="*********************"
+
+
+backend> npm run dev
+
+> backend@1.0.0 dev
+> node --watch src/index.js
+
+MongoDB connection error: Cannot read properties of undefined (reading 'MONGODB_URI')
+Failed running 'src/index.js'. Waiting for file changes before restarting...
+
+
+
+backend> npm run dev
+
+> backend@1.0.0 dev
+> node --watch src/index.js
+
+MongoDB connection error: MONGODB_URI not found.
+Failed running 'src/index.js'. Waiting for file changes before restarting...
