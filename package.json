@@ -2,6 +2,7 @@
     "name": "backend",
     "version": "1.0.0",
     "description": "Backend for application",
+    "main": "index.ts",
     "type": "module",
     "dependencies": {
         "@hono/node-server": "^2.0.6",
