@@ -2,16 +2,6 @@
     "name": "backend",
     "version": "1.0.0",
     "description": "Backend for application",
-    "main": "index.ts",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "node --watch src/index.ts",
-        "build": "node src/index.ts",
-        "preview": "node dist/index.ts"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
     "type": "module",
     "dependencies": {
         "@hono/node-server": "^2.0.6",
