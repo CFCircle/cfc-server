@@ -6,11 +6,19 @@ const app = new Hono();
 
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
 
-const frontendOrigin = process.env.CLIENT_URL ?? "http://localhost:5173";
+const localOrigin = process.env.CLIENT_LOCAL_URL;
+const productionOrigin = process.env.CLIENT_PRODUCTION_URL;
+
+const allowedOrigins = [
+   localOrigin,
+   productionOrigin
+];
 
 // Config
 app.use("/api/*", cors({
-      origin: frontendOrigin,
+      origin: (origin) => {
+         return allowedOrigins.includes(origin) ? origin : "";
+      },
       allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       allowHeaders: ["Content-Type", "Authorization"],
    })
@@ -29,6 +37,6 @@ app.get("/api/health", (c) => {
 // Start
 serve({ fetch: app.fetch, port: SERVER_PORT }, (info) => {
    console.log(`Node server started on port: ${info.port}`)
- });
+});
 
 export default app;
