@@ -1,3 +1,5 @@
+
+
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serve } from '@hono/node-server';
@@ -6,21 +8,27 @@ const app = new Hono();
 
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
 
-const localOrigin = process.env.CLIENT_LOCAL_URL;
+const localOrigin = process.env.CLIENT_LOCAL_URL ?? "http://localhost:5173";
 const productionOrigin = process.env.CLIENT_PRODUCTION_URL;
+
 
 const allowedOrigins = [
    localOrigin,
    productionOrigin
 ];
 
+const frontendOrigin = process.env.CLIENT_LOCAL_URL ?? "http://localhost:5173";
+
 // Config
-app.use("/api/*", cors({
+app.use('/api/*', cors({
       origin: (origin) => {
-         return allowedOrigins.includes(origin) ? origin : "";
+         return allowedOrigins.includes(origin) ? origin : null
       },
-      allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-      allowHeaders: ["Content-Type", "Authorization"],
+      allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      allowHeaders: ['Content-Type', 'Authorization'],
+      // exposeHeaders: ['Content-Length'],
+      // credentials: true,      // required if your frontend sends cookies or Auth headers
+      // maxAge: 600,            // how long browsers cache the preflight response (seconds)
    })
 );
 
