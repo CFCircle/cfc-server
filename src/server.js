@@ -6,10 +6,10 @@ import { serve } from '@hono/node-server';
 
 const app = new Hono();
 
-const SERVER_PORT = process.env.SERVER_PORT;
+const SERVER_PORT = process.env.SERVER_PORT || 3000;
 
-const localOrigin = process.env.LOCAL_CLIENT_URL;
-const productionOrigin = process.env.PAGES_CLIENT_URL;
+const localOrigin = process.env.LOCAL_CLIENT_URL || `http://localhost:5173`;
+const productionOrigin = process.env.PAGES_CLIENT_URL || `https://client-d1u.pages.dev`;
 
 
 const allowedOrigins = [
@@ -43,8 +43,8 @@ app.get("/api/health", (c) => {
 // Start
 serve({ fetch: app.fetch, port: SERVER_PORT }, (info) => {
    console.log(`Node server started on port: ${info.port}`);
-   // console.log(`Allowed origin 1: ${localOrigin}`);
-   // console.log(`Allowed origin 2: ${productionOrigin}`);
+   console.log(`Allowed origin 1: ${localOrigin}`);
+   console.log(`Allowed origin 2: ${productionOrigin}`);
 });
 
 export default app;
