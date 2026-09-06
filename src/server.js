@@ -1,4 +1,4 @@
-
+import "dotenv/config";
 
 import { Hono } from "hono";
 import { cors } from "hono/cors";
@@ -42,7 +42,9 @@ app.get("/api/health", (c) => {
 
 // Start
 serve({ fetch: app.fetch, port: SERVER_PORT }, (info) => {
-   console.log(`Node server started on port: ${info.port}`)
+   console.log(`Node server started on port: ${info.port}`);
+   // console.log(`Allowed origin 1: ${localOrigin}`);
+   // console.log(`Allowed origin 2: ${productionOrigin}`);
 });
 
 export default app;
