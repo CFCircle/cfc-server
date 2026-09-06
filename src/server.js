@@ -8,16 +8,14 @@ const app = new Hono();
 
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
 
-const localOrigin = process.env.CLIENT_LOCAL_URL ?? "http://localhost:5173";
-const productionOrigin = process.env.CLIENT_PRODUCTION_URL;
+const localOrigin = process.env.LOCAL_CLIENT_URL ?? "http://localhost:5173";
+const productionOrigin = process.env.PAGES_CLIENT_URL;
 
 
 const allowedOrigins = [
    localOrigin,
    productionOrigin
 ];
-
-const frontendOrigin = process.env.CLIENT_LOCAL_URL ?? "http://localhost:5173";
 
 // Config
 app.use('/api/*', cors({
