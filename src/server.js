@@ -9,7 +9,7 @@ const app = new Hono();
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
 
 const localOrigin = process.env.LOCAL_CLIENT_URL ?? "http://localhost:5173";
-const productionOrigin = process.env.PAGES_CLIENT_URL || `https://client-d1u.pages.dev`;
+const productionOrigin = process.env.PAGES_CLIENT_URL || "https://client-d1u.pages.dev";
 
 
 const allowedOrigins = [
