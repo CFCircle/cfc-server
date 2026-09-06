@@ -35,7 +35,7 @@ app.get("/api/health", (c) => {
    return c.json({
       status: "ok",
       message:
-         "Backend is connected! Visit https://vercel.com/docs/frameworks/backend/hono to learn more.",
+         "Backend is running! Visit https://vercel.com/docs/frameworks/backend/hono to learn more.",
       timestamp: new Date().toISOString(),
    });
 });
